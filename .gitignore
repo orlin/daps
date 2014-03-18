@@ -4,8 +4,25 @@
 .hgignore
 .hg/*
 .svn/*
-.c9revisions/*
-.sass-cache
 
+# Node
 node_modules
 npm-debug.log
+
+# Clojure
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+.lein-deps-sum
+.lein-failures
+.lein-plugins
+.lein-repl-history
+.nrepl-port
+
+# Amazonica
+aws/docs
+aws/target
+aws/lib
+aws/classes
+aws/checkouts
