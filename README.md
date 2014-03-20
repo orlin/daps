@@ -7,6 +7,7 @@ This is a devops project for infrastructure as code.
 * [Vagrant](http://www.vagrantup.com) dev env or else [boot2docker](http://boot2docker.github.io)
 * [Packer](http://www.packer.io/) machine image provisioning
 * [Docker](https://www.docker.io) process containers
+* [Dokku](https://github.com/progrium/dokku) `git push` deploy as if to Heroku
 * [Serf](http://www.serfdom.io) decentralized orchestration / discovery
 * [Amazonica](https://github.com/mcohen01/amazonica) services:
   - [CloudWatch](http://aws.amazon.com/cloudwatch)
