@@ -26,3 +26,6 @@ aws/target
 aws/lib
 aws/classes
 aws/checkouts
+
+# Projects
+web
