@@ -1,0 +1,11 @@
+{
+  "builders": [{
+    "type": "docker",
+    "image": "ubuntu",
+    "export_path": "web-docker.tar"
+  }],
+  "provisioners": [{
+    "type": "ansible-local",
+    "playbook_file": "web.yaml"
+  }]
+}
