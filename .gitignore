@@ -29,3 +29,8 @@ aws/checkouts
 
 # Projects
 web
+
+# Packer
+packer
+packer_cache
+

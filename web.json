@@ -1,11 +1,12 @@
 {
   "builders": [{
     "type": "docker",
-    "image": "ubuntu",
-    "export_path": "web-docker.tar"
+    "image": "egghead/ubuntu-ansible-1.4",
+    "export_path": "packer/web-docker.tar"
   }],
   "provisioners": [{
     "type": "ansible-local",
-    "playbook_file": "web.yaml"
+    "playbook_file": "web.yaml",
+    "staging_directory": "packer/tmp/ansible"
   }]
 }
