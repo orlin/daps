@@ -1,7 +1,7 @@
 {
   "builders": [{
     "type": "docker",
-    "image": "egghead/ubuntu-ansible-1.4",
+    "image": "orlin/ubuntu-ansible:1.5.3",
     "export_path": "packer/web-docker.tar"
   }],
   "provisioners": [{
