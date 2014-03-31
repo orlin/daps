@@ -18,7 +18,7 @@
   "post-processors": [
     [{ "type": "docker-import",
        "repository": "orlin/ubuntu-ansible",
-       "tag": "1.5.3"
+       "tag": "precise-1.5.x"
     }]
   ]
 }
