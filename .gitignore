@@ -4,6 +4,7 @@
 .hgignore
 .hg/*
 .svn/*
+._*
 
 # Node
 node_modules
@@ -29,3 +30,8 @@ aws/checkouts
 
 # Projects
 web
+
+# Packer
+packer
+packer_cache
+

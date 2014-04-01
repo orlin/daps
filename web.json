@@ -1,0 +1,18 @@
+{
+  "builders": [{
+    "type": "docker",
+    "image": "orlin/ubuntu-ansible:precise-1.5.x",
+    "export_path": "packer/web-docker.tar"
+  }],
+  "provisioners": [{
+    "type": "ansible-local",
+    "playbook_file": "web.yaml",
+    "staging_directory": "packer/tmp/ansible"
+  }],
+  "post-processors": [
+    [{ "type": "docker-import",
+       "repository": "astrolet/web",
+       "tag": "latest"
+    }]
+  ]
+}
