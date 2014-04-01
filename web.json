@@ -11,6 +11,7 @@
   }],
   "post-processors": [
     [{ "type": "docker-import",
+       "only": ["docker"],
        "repository": "astrolet/web",
        "tag": "latest"
     }]
