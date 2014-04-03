@@ -1,0 +1,3 @@
+This `README.md` ensures the packer directory exists in the repository, otherwise `packer build` is not happy.  It's meant to contain git-ignored image artifacts.
+
+As of this writing, Packer cannot build Docker images on Mac OS.  One can however use such images, thanks to `boot2docker`, etc.  For example, after copying the remote image, run `cat packer/web-docker.tar | docker import - astrolet/web` to get going...

@@ -32,6 +32,6 @@ aws/checkouts
 web
 
 # Packer
-packer
+packer/*.tar
 packer_cache
 
