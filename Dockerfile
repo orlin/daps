@@ -1,6 +1,6 @@
 # Used to build Astrolet's base image.
 # This is an alternative to base.json - ultimately one will remain...
-# $ docker build --rm -t astrolet/phusion-ansible .
+# $ docker build --rm -t astrolet/ab .
 
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.

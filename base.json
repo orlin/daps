@@ -14,8 +14,9 @@
   }],
   "post-processors": [
     [{ "type": "docker-import",
+       "only": ["docker"],
        "keep_input_artifact": true,
-       "repository": "astrolet/phusion-ansible",
+       "repository": "astrolet/ab",
        "tag": "latest"
     }]
   ]

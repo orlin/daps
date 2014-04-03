@@ -1,8 +1,9 @@
 {
   "builders": [{
     "type": "docker",
-    "image": "orlin/ubuntu-ansible:precise-1.5.x",
-    "export_path": "packer/web-docker.tar"
+    "image": "astrolet/ab",
+    "export_path": "packer/web-docker.tar",
+    "pull": false
   }],
   "provisioners": [{
     "type": "ansible-local",
