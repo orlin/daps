@@ -9,10 +9,18 @@ FROM phusion/baseimage:0.9.9
 # Set correct environment variables.
 ENV HOME /root
 
+# Only a temporary solution (for faster development)!
+# Uncomment this to enable the insecure key.
+RUN /usr/sbin/enable_insecure_key
+
 # Regenerate SSH host keys. baseimage-docker does not contain any, so you
 # have to do that yourself. You may also comment out this instruction; the
 # init system will auto-generate one during boot.
 # RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+
+# Install an SSH key of your choice.
+# ADD your_key /tmp/your_key
+# RUN cat /tmp/your_key >> /root/.ssh/authorized_keys && rm -f /tmp/your_key
 
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
