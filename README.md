@@ -1,4 +1,4 @@
-# paddis -- packer ansible docker deployments, plus aws additives, and infrastructure serfdom
+# daps -- docker ansible packer serf / status
 
 This is a devops project for infrastructure as code.
 [Culture is Defined by What You Cannot Say](http://thinkrelevance.com/blog/2014/02/17/culture-is-defined-by-what-you-cannot-say).
