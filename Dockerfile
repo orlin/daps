@@ -20,7 +20,7 @@ CMD ["/sbin/my_init"]
 # Ansible:
 RUN apt-get update
 RUN apt-get install -y sudo python-dev python-apt python-pycurl python-pip python-virtualenv
-pip install -U ansible==1.5.3
+RUN pip install -U ansible==1.5.3
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
