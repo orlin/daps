@@ -1,0 +1,30 @@
+{ "name": "daps"
+, "private": true
+, "description": "docker ansible packer serf"
+, "keywords": [ "astrolet", "devops" ]
+, "version": "0.0.1"
+, "repository":
+  { "type": "git"
+  , "url": "git://github.com/orlin/daps.git"
+  }
+, "bugs":
+  { "mail": "orlin@astrolet.net"
+  , "url" : "https://github.com/orlin/daps/issues"
+  }
+, "author": "Orlin M Bozhinov <orlin@astrolet.net>"
+, "contributors": []
+, "dependencies":
+  { "coffee-script": "*"
+  , "gulp": "*"
+  , "gulp-util": "*"
+  , "gulp-task-listing": "*"
+  }
+, "devDependencies": { "gulp-print": "*" }
+, "scripts": {}
+, "engines" : { "node" : "0.10.x" }
+, "licenses":
+  [ { "type": "Copyright"
+    , "url" : "http://astrolet.co/"
+    }
+  ]
+}
