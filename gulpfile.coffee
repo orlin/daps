@@ -1,10 +1,6 @@
 gulp = require("gulp")
-gutil = require("gulp-util")
-# path = require("path")
 exec = require("child_process").exec
 help = require("gulp-task-listing")
-# fs = require("fs")
-# print = require("gulp-print") # debug
 
 
 gulp.task "help", help
@@ -35,7 +31,7 @@ gulp.task "build-ab", ->
     process.stdout.write(stderr) if stderr
     console.log("[build] error(s) above") if error isnt null
 
-gulp.task "ssh-ab", ->
+gulp.task "shell-ab", ->
   exec "docker ps | grep astrolet/ab"
   , (error, stdout, stderr) ->
     process.stdout.write(stderr) if stderr

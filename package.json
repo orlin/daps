@@ -16,10 +16,9 @@
 , "dependencies":
   { "coffee-script": "*"
   , "gulp": "*"
-  , "gulp-util": "*"
   , "gulp-task-listing": "*"
   }
-, "devDependencies": { "gulp-print": "*" }
+, "devDependencies": {}
 , "scripts": {}
 , "engines" : { "node" : "0.10.x" }
 , "licenses":
