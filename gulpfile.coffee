@@ -11,7 +11,7 @@ gulp.task "default", help
 # exec #simple
 exe = (cmd, cb) ->
   exec cmd, (error, stdout, stderr) ->
-    process.stdout.write(stderr) if stderr
+    process.stderr.write(stderr) if stderr
     if error isnt null
       console.log(error)
     else if cb?
@@ -27,7 +27,9 @@ run = (cmd) ->
   chips.stdout.on "data", (data) ->
     process.stdout.write(data)
   chips.stderr.on "data", (data) ->
-    process.stdout.write(data)
+    process.stderr.write(data)
+  chips.on "error", (err) ->
+    console.error "Error:\n#{JSON.stringify(err, null, 2)}"
   chips.on "close", (code) ->
     unless code is 0
       console.log "This `#{cmd}` process exited with code #{code}."
