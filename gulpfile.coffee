@@ -10,10 +10,10 @@ gulp.task "default", help
 
 # exec #simple
 exe = (cmd, cb) ->
-  exec cmd, (error, stdout, stderr) ->
+  exec cmd, (err, stdout, stderr) ->
     process.stderr.write(stderr) if stderr
-    if error isnt null
-      console.log(error)
+    if err isnt null
+      console.trace JSON.stringify(err, null, 2)
     else if cb?
       cb(stdout)
     else
@@ -29,7 +29,7 @@ run = (cmd) ->
   chips.stderr.on "data", (data) ->
     process.stderr.write(data)
   chips.on "error", (err) ->
-    console.error "Error:\n#{JSON.stringify(err, null, 2)}"
+    console.trace JSON.stringify(err, null, 2)
   chips.on "close", (code) ->
     unless code is 0
       console.log "This `#{cmd}` process exited with code #{code}."
@@ -54,6 +54,6 @@ gulp.task "build-ab", ->
   run "docker build --rm -t astrolet/ab ."
 
 gulp.task "shell-ab", ->
-  exe "docker ps | grep astrolet/ab", (stdout) ->
+  exe "docker ps | grep phusion/baseimage", (stdout) ->
     exe "docker inspect #{containerID(stdout)} | grep IPAddress", (stdout) ->
       console.log "ssh -i tmp/insecure_key root@#{containerIP(stdout)}"
