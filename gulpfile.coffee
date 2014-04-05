@@ -1,6 +1,6 @@
 gulp = require("gulp")
-exec = require("child_process").exec
 help = require("gulp-task-listing")
+{exec, spawn} = require("child_process")
 
 
 gulp.task "help", help
@@ -19,6 +19,19 @@ exe = (cmd, cb) ->
     else
       process.stdout.write(stdout)
 
+# spawn #simple
+run = (cmd) ->
+  args = cmd.split /\s+/
+  command = args.shift()
+  chips = spawn(command, args)
+  chips.stdout.on "data", (data) ->
+    process.stdout.write(data)
+  chips.stderr.on "data", (data) ->
+    process.stdout.write(data)
+  chips.on "close", (code) ->
+    unless code is 0
+      console.log "This `#{cmd}` process exited with code #{code}."
+
 # docker images | grep {repositoryID}
 imageID = (line) ->
   line.match(/^\S+\s+\S+\s+(\S+)/)[1]
@@ -36,7 +49,7 @@ gulp.task "init", ->
   console.log "see trello card..."
 
 gulp.task "build-ab", ->
-  exe "docker build --rm -t astrolet/ab ."
+  run "docker build --rm -t astrolet/ab ."
 
 gulp.task "shell-ab", ->
   exe "docker ps | grep astrolet/ab", (stdout) ->
