@@ -15,12 +15,13 @@
 , "contributors": []
 , "dependencies":
   { "coffee-script": "*"
+  , "commander": "*"
   , "gulp": "*"
   , "gulp-task-listing": "*"
   }
 , "devDependencies": {}
 , "bin": { "daps" : "./bin/daps.sh"
-         , "dapj" : "./bin/daps.js"}
+         , "daps.js": "./bin/daps.js" }
 , "scripts": {}
 , "engines" : { "node" : "0.10.x" }
 , "licenses":
