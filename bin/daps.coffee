@@ -45,16 +45,14 @@ daps.version("0.0.1")
 
 daps
   .command("build [repo]")
-  .description("")
+  .description("docker build the Dockerfile base image <repository>")
   .action (repo = "astrolet/ab") ->
-    console.log "docker build #{repo}"
     run "docker build --rm -t #{repo} ."
 
 daps
   .command("ssh [repo]")
-  .description("")
+  .description("docker run a transient <repository> container and produce a command to ssh with")
   .action (repo = "phusion/baseimage") ->
-    console.log "docker run #{repo} container and provide an ssh command string"
     exe "docker ps | grep #{repo}", (stdout) ->
       exe "docker inspect #{containerID(stdout)} | grep IPAddress", (stdout) ->
         console.log "ssh -i tmp/insecure_key root@#{containerIP(stdout)}"
