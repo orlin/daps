@@ -5,7 +5,9 @@ module.exports =
   # this module's root path
   # TODO: improve with several paths by checking each one for daps/ presence
   # NOTE: must run daps from its module dir if $NODE_PATH isn't set
-  mp: -> (process.env.NODE_PATH or '.').split(':')[0] + "/daps"
+  mp: ->
+    np = process.env.NODE_PATH
+    if np is undefined then '.' else np.split(':')[0] + "/daps"
 
   # exec #simple
   exe: (cmd, cb) ->
