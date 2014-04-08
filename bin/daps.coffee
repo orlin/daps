@@ -1,6 +1,5 @@
 daps = require("commander")
-{exe, run} = require("./helpers")
-
+{mp, exe, run} = require("./helpers")
 
 # docker images | grep {repositoryID}
 imageID = (line) ->
