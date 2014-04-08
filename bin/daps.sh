@@ -13,7 +13,7 @@ contains() {
 # TODO: make sure it's a one-line, at least, also strip the /\n$/?
 evalist="ssh empty"
 
-if contains $evalist $1 ; then
+if contains "$evalist" $1 ; then
   # eval daps.js stdout command
   eval $(daps.js $*)
 else
