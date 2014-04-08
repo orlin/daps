@@ -15,7 +15,7 @@ evalist="ssh empty"
 
 if contains "$evalist" $1 ; then
   # eval daps.js stdout command
-  eval $(daps.js $*)
+  (cd $(daps.js mp); eval $(daps.js $*))
 else
-  daps.js $*
+  (cd $(daps.js mp); daps.js $*; echo "\n")
 fi

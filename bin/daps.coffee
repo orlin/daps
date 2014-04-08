@@ -39,7 +39,6 @@ daps
 daps
   .command("mp")
   .description("the module path for daps")
-  .action ->
-    console.log mp()
+  .action -> process.stdout.write mp()
 
 daps.parse(process.argv)
