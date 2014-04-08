@@ -1,6 +1,7 @@
 daps = require("commander")
 {mp, exe, run} = require("./helpers")
 
+
 # docker images | grep {repositoryID}
 imageID = (line) ->
   line.match(/^\S+\s+\S+\s+(\S+)/)[1]
@@ -34,5 +35,11 @@ daps
   .description("a command that does nothing, used to test the daps bash script with")
   .action ->
     console.log "" # just a "\n"
+
+daps
+  .command("mp")
+  .description("the module path for daps")
+  .action ->
+    console.log mp()
 
 daps.parse(process.argv)
