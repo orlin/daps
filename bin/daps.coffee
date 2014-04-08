@@ -15,7 +15,7 @@ containerIP = (line) ->
   line.match(/([^"]+)",?\s*$/)[1]
 
 
-daps.version("0.0.1")
+daps.version(require("../package.json").version)
 
 daps
   .command("build [repo]")
