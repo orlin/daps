@@ -56,5 +56,10 @@ daps
     exe "docker ps | grep #{repo}", (stdout) ->
       exe "docker inspect #{containerID(stdout)} | grep IPAddress", (stdout) ->
         console.log "ssh -i tmp/insecure_key root@#{containerIP(stdout)}"
+daps
+  .command("empty")
+  .description("a command that does nothing, used to test the daps bash script with")
+  .action ->
+    console.log "" # just a "\n"
 
 daps.parse(process.argv)
