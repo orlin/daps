@@ -13,14 +13,19 @@ contains() {
 evalist="ssh blank"
 oneline() {
   # exits if a newline is found
-  [[ $1 == *$'\n'* ]] && exit 1
+  if [[ $2 == *$'\n'* ]]; then
+    echo "The '$1' should yield exactly one line to eval, exiting instead."
+    echo "FYI, here is what was got:"
+    echo $2
+    exit 1
+  fi
 }
 
 if contains "$evalist" $1 ; then
   # eval daps.js stdout command
   ( cd $(daps.js path)
     command=$(daps.js $*)
-    oneline "$command"
+    oneline $* "$command"
     eval $command
   )
 else
