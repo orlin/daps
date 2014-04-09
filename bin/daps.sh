@@ -25,7 +25,7 @@ oneline() {
 
 # Is running in a sub-shell necessary in order for the `cd path` to be temporary?
 ( path=$(daps.js path)
-  oneline path && cd $path
+  oneline "path" $path && cd $path
   # Make sure we are in the right place, or don't run anything.
   if grep -q "^# daps --" "$path/README.md"; then
     if [[ $1 == "line" ]]; then
