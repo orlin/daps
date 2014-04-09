@@ -10,12 +10,19 @@ contains() {
 
 # Space-separated list of commands that produce commands to eval.
 # Be careful what goes here - running arbitrary strings can be bad!
-# TODO: make sure it's a one-line, at least, also strip the /\n$/?
 evalist="ssh blank"
+oneline() {
+  # exits if a newline is found
+  [[ $1 == *$'\n'* ]] && exit 1
+}
 
 if contains "$evalist" $1 ; then
   # eval daps.js stdout command
-  (cd $(daps.js path); eval $(daps.js $*))
+  ( cd $(daps.js path)
+    command=$(daps.js $*)
+    oneline "$command"
+    eval $command
+  )
 else
   (cd $(daps.js path); daps.js $*)
 fi
