@@ -21,13 +21,18 @@ oneline() {
   fi
 }
 
-if contains "$evalist" $1 ; then
-  # eval daps.js stdout command
-  ( cd $(daps.js path)
+# Is running in a sub-shell necessary in order for the `cd path` to be temporary?
+( path=$(daps.js path)
+  oneline path
+  cd $path
+  # TODO: if $path is '.' then make sure we are in the right place, or warn.
+
+  if contains "$evalist" $1 ; then
+    # eval daps.js <command>
     command=$(daps.js $*)
     oneline $* "$command"
     eval $command
-  )
-else
-  (cd $(daps.js path); daps.js $*)
-fi
+  else
+    daps.js $*
+  fi
+)
