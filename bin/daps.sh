@@ -18,6 +18,8 @@ oneline() {
     echo "FYI, here is what was got:"
     echo $2
     exit 1
+  else
+    return 0 # true
   fi
 }
 
@@ -26,7 +28,14 @@ oneline() {
   oneline path && cd $path
   # Make sure we are in the right place, or don't run anything.
   if grep -q "^# daps --" "$path/README.md"; then
-    if contains "$evalist" $1 ; then
+    if [[ $1 == "line" ]]; then
+      # use it to dev commands with (before adding them to the $evalist)
+      shift # removes line from the argv
+      line=$(daps.js $*)
+      if oneline $* $line ; then
+        echo $line # the command to be
+      fi
+    elif contains "$evalist" $1 ; then
       # eval daps.js <command>
       command=$(daps.js $*)
       oneline $* "$command"
