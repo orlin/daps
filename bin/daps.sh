@@ -11,11 +11,11 @@ contains() {
 # Space-separated list of commands that produce commands to eval.
 # Be careful what goes here - running arbitrary strings can be bad!
 # TODO: make sure it's a one-line, at least, also strip the /\n$/?
-evalist="ssh empty"
+evalist="ssh blank"
 
 if contains "$evalist" $1 ; then
   # eval daps.js stdout command
-  (cd $(daps.js mp); eval $(daps.js $*))
+  (cd $(daps.js path); eval $(daps.js $*))
 else
-  (cd $(daps.js mp); daps.js $*; echo "\n")
+  (cd $(daps.js path); daps.js $*)
 fi

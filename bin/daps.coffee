@@ -29,16 +29,16 @@ daps
   .action (repo = "phusion/baseimage") ->
     exe "docker ps | grep #{repo}", (stdout) ->
       exe "docker inspect #{containerID(stdout)} | grep IPAddress", (stdout) ->
-        console.log "ssh -i tmp/insecure_key root@#{containerIP(stdout)}"
-daps
-  .command("empty")
-  .description("a command that does nothing, used to test the daps bash script with")
-  .action ->
-    console.log "" # just a "\n"
+        process.stdout.write "ssh -i tmp/insecure_key root@#{containerIP(stdout)}"
 
 daps
-  .command("mp")
-  .description("the module path for daps")
+  .command("blank")
+  .description("a command that does nothing, used to test the daps bash script with")
+  .action -> process.stdout.write '' # absolutely nothing
+
+daps
+  .command("path")
+  .description("the daps module path - based on $NODE_PATH or else .")
   .action -> process.stdout.write mp()
 
 daps.parse(process.argv)
