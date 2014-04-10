@@ -13,7 +13,7 @@ evalist="ssh blank"
 # Try `daps line <command>` and add to the list once it looks good.
 
 
-# exits if a newline is found - a trailing \n is ok
+# Exits if a newline is found - a trailing \n is ok.
 oneline() {
   if [[ $1 == *$'\n'* ]]; then
     echo "The 'daps $2' should yield exactly one line to eval, exiting instead."
@@ -25,7 +25,7 @@ oneline() {
   fi
 }
 
-# determine if a list $1 contains an item $2
+# Determine if a list $1 contains an item $2.
 contains() {
   for word in $1; do
     [[ $word = $2 ]] && return 0 # = true
@@ -34,7 +34,7 @@ contains() {
 }
 
 
-# make sure we are in the right place, or don't run anything
+# Make sure we are in the right place, or don't run anything.
 path=$(daps.js path)
 oneline "$path" "path" && cd $path
 if ! grep -q "^# daps --" "$path/README.md"; then
@@ -43,6 +43,10 @@ if ! grep -q "^# daps --" "$path/README.md"; then
   echo "Best set the \$NODE_PATH - or else cd to where daps is found."
   help="show"
 fi
+
+
+# The order of `daps` commands matters.
+# The sequence of if and elifs shouldn't be rearranged!
 
 if [[ $1 == "" || $1 == "help" || $help == "show" ]]; then
   # help comes first
@@ -69,5 +73,6 @@ elif contains "$evalist" $1 ; then
   eval $command
 
 else
+  # delegate
   daps.js $*
 fi
