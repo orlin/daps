@@ -16,7 +16,7 @@ oneline() {
   if [[ $1 == *$'\n'* ]]; then
     echo "The 'daps $2' should yield exactly one line to eval, exiting instead."
     echo "FYI, here is what was got:"
-    echo $1
+    echo "$1"
     exit 1
   else
     return 0 # true
@@ -25,20 +25,20 @@ oneline() {
 
 # Is running in a sub-shell necessary in order for the `cd path` to be temporary?
 ( path=$(daps.js path)
-  oneline $path "path" && cd $path
+  oneline "$path" "path" && cd $path
   # Make sure we are in the right place, or don't run anything.
   if grep -q "^# daps --" "$path/README.md"; then
     if [[ $1 == "line" ]]; then
       # use it to dev commands with (before adding them to the $evalist)
       shift # removes line from the argv
       line=$(daps.js $*)
-      if oneline $line $* ; then
+      if oneline "$line" "$*" ; then
         echo $line # the command to be
       fi
     elif contains "$evalist" $1 ; then
-      # eval daps.js <command>
+      # eval daps.js <command> ...
       command=$(daps.js $*)
-      oneline "$command" $*
+      oneline "$command" "$*"
       eval $command
     else
       daps.js $*

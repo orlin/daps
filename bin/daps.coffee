@@ -34,7 +34,7 @@ daps
 daps
   .command("blank")
   .description("a command that does nothing, used to test the daps bash script with")
-  .action -> process.stdout.write '' # absolutely nothing
+  .action -> process.stdout.write '\n' # the last \n gets stripped with $() on the bash side
 
 daps
   .command("path")
