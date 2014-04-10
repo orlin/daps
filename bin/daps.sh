@@ -34,7 +34,18 @@ contains() {
 }
 
 
-if [[ $1 == "" || $1 == "help" ]]; then
+# make sure we are in the right place, or don't run anything
+path=$(daps.js path)
+oneline "$path" "path" && cd $path
+if ! grep -q "^# daps --" "$path/README.md"; then
+  echo
+  echo "This '$path' path is not the root directory of daps."
+  echo "Best set the \$NODE_PATH - or else cd to where daps is found."
+  help="show"
+fi
+
+if [[ $1 == "" || $1 == "help" || $help == "show" ]]; then
+  # help comes first
   daps.js --help
   echo "  Extras:"
   echo
@@ -43,32 +54,20 @@ if [[ $1 == "" || $1 == "help" ]]; then
   echo "    Serf events / queries, etc."
   echo
 
-else
-  # make sure we are in the right place, or don't run anything
-  path=$(daps.js path)
-  oneline "$path" "path" && cd $path
-  if grep -q "^# daps --" "$path/README.md"; then
-
-    if [[ $1 == "line" ]]; then
-      # use it to dev commands with (before adding them to the $evalist)
-      shift # removes line from the argv
-      line=$(daps.js $*)
-      if oneline "$line" "$*" ; then
-        echo $line # the command to be
-      fi
-
-    elif contains "$evalist" $1 ; then
-      # eval daps.js <command> ...
-      command=$(daps.js $*)
-      oneline "$command" "$*"
-      eval $command
-
-    else
-      daps.js $*
-    fi
-
-  else
-    echo "This '$path' path is not the root directory of daps."
-    echo "Best set the \$NODE_PATH - or else cd to where daps is found."
+elif [[ $1 == "line" ]]; then
+  # use it to dev commands with (before adding them to the $evalist)
+  shift # removes line from the argv
+  line=$(daps.js $*)
+  if oneline "$line" "$*" ; then
+    echo $line # the command to be
   fi
+
+elif contains "$evalist" $1 ; then
+  # eval daps.js <command> ...
+  command=$(daps.js $*)
+  oneline "$command" "$*"
+  eval $command
+
+else
+  daps.js $*
 fi
