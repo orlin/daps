@@ -2,6 +2,7 @@
 
 # daps runs daps.js commands
 # set $NODE_PATH to run from anywhere
+# this will be used via ansible, serf events / queries, etc.
 
 # Space-separated list of commands that produce commands to eval.
 # Be careful what goes here - running arbitrary strings can be bad!
