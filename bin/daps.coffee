@@ -39,6 +39,12 @@ daps
 daps
   .command("path")
   .description("the daps module path - based on $NODE_PATH or else .")
-  .action -> process.stdout.write mp()
+  .action ->
+    process.stdout.write (
+      # TODO: improve with several paths by checking each one for daps/ presence
+      # NOTE: must run daps from its module dir if $NODE_PATH isn't set
+      np = process.env.NODE_PATH
+      if np is undefined then '.' else np.split(':')[0] + "/daps"
+    )
 
 daps.parse(process.argv)
