@@ -13,7 +13,7 @@ contains() {
 evalist="ssh blank"
 oneline() {
   # exits if a newline is found
-  if [[ $1 == *$'\n'* ]]; then
+  if [[ $1 =~ \n ]]; then
     echo "The 'daps $2' should yield exactly one line to eval, exiting instead."
     echo "FYI, here is what was got:"
     echo "$1"
