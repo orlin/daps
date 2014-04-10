@@ -29,28 +29,30 @@ contains() {
   return 1 # = false
 }
 
-# Is running in a sub-shell necessary in order for the `cd path` to be temporary?
-( path=$(daps.js path)
-  oneline "$path" "path" && cd $path
-  # Make sure we are in the right place, or don't run anything.
-  if grep -q "^# daps --" "$path/README.md"; then
-    if [[ $1 == "line" ]]; then
-      # use it to dev commands with (before adding them to the $evalist)
-      shift # removes line from the argv
-      line=$(daps.js $*)
-      if oneline "$line" "$*" ; then
-        echo $line # the command to be
-      fi
-    elif contains "$evalist" $1 ; then
-      # eval daps.js <command> ...
-      command=$(daps.js $*)
-      oneline "$command" "$*"
-      eval $command
-    else
-      daps.js $*
+path=$(daps.js path)
+oneline "$path" "path" && cd $path
+# make sure we are in the right place, or don't run anything
+if grep -q "^# daps --" "$path/README.md"; then
+
+  if [[ $1 == "line" ]]; then
+    # use it to dev commands with (before adding them to the $evalist)
+    shift # removes line from the argv
+    line=$(daps.js $*)
+    if oneline "$line" "$*" ; then
+      echo $line # the command to be
     fi
+
+  elif contains "$evalist" $1 ; then
+    # eval daps.js <command> ...
+    command=$(daps.js $*)
+    oneline "$command" "$*"
+    eval $command
+
   else
-    echo "This '$path' path is not the root directory of daps."
-    echo "Best set the \$NODE_PATH - or else cd to where daps is found."
+    daps.js $*
   fi
-)
+
+else
+  echo "This '$path' path is not the root directory of daps."
+  echo "Best set the \$NODE_PATH - or else cd to where daps is found."
+fi
