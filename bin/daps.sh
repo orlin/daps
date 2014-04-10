@@ -1,13 +1,17 @@
 #!/bin/bash
 
-# daps runs daps.js commands
-# set $NODE_PATH to run from anywhere
-# this will be used via ansible, serf events / queries, etc.
+# This `daps` mostly delegates to `daps.js <commands>`.
+# The few extras are location-independence, automated meta-command eval,
+# a small safety mechanism, and a `daps line ...` for daps.js meta-commands
+# development.
+
+
+evalist="ssh blank"
 
 # Space-separated list of commands that produce commands to eval.
 # Be careful what goes here - running arbitrary strings can be bad!
 # Try `daps line <command>` and add to the list once it looks good.
-evalist="ssh blank"
+
 
 # exits if a newline is found - a trailing \n is ok
 oneline() {
@@ -29,12 +33,20 @@ contains() {
   return 1 # = false
 }
 
+
 if [[ $1 == "" || $1 == "help" ]]; then
   daps.js --help
+  echo "  Extras:"
+  echo
+  echo "    Set \$NODE_PATH to run from anywhere."
+  echo "    This daps will be used via Ansible,"
+  echo "    Serf events / queries, etc."
+  echo
+
 else
+  # make sure we are in the right place, or don't run anything
   path=$(daps.js path)
   oneline "$path" "path" && cd $path
-  # make sure we are in the right place, or don't run anything
   if grep -q "^# daps --" "$path/README.md"; then
 
     if [[ $1 == "line" ]]; then
