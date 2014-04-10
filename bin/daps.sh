@@ -11,7 +11,7 @@ evalist="ssh blank"
 
 # exits if a newline is found - a trailing \n is ok
 oneline() {
-  if [[ $1 =~ \n ]]; then
+  if [[ $1 == *$'\n'* ]]; then
     echo "The 'daps $2' should yield exactly one line to eval, exiting instead."
     echo "FYI, here is what was got:"
     echo "$1"
