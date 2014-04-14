@@ -1,3 +1,5 @@
+#!/usr/bin/env ./node_modules/.bin/coffee
+
 daps = require("commander")
 {mp, exe, run} = require("./helpers")
 

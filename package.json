@@ -20,8 +20,7 @@
   , "gulp-task-listing": "*"
   }
 , "devDependencies": {}
-, "bin": { "daps" : "./bin/bon.sh"
-         , "daps.js": "./bin/daps.js" }
+, "bin": { "daps" : "./bin/bon.sh" }
 , "scripts": {}
 , "engines" : { "node" : "0.10.x" }
 , "licenses":
