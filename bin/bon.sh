@@ -12,11 +12,15 @@ evalist="ssh blank"
 # Be careful what goes here - running arbitrary strings can be bad!
 # Try `daps line <command>` and add to the list once it looks good.
 
+# Variables:
+name=$(basename ${BASH_SOURCE[0]})
+script="./bin/$name.js"
+
 
 # Exits if a newline is found - a trailing \n is ok.
 oneline() {
   if [[ $1 == *$'\n'* ]]; then
-    echo "The 'daps $2' should yield exactly one line to eval, exiting instead."
+    echo "The '$name $2' should yield exactly one line to eval, exiting instead."
     echo "FYI, here is what was got:"
     echo "$1"
     exit 1
@@ -35,12 +39,12 @@ contains() {
 
 
 # Make sure we are in the right place, or don't run anything.
-path=$(daps.js path)
+path=$($script path)
 oneline "$path" "path" && cd $path
 if ! grep -q "^# daps --" "$path/README.md"; then
   echo
-  echo "This '$path' path is not the root directory of daps."
-  echo "Best set the \$NODE_PATH - or else cd to where daps is found."
+  echo "This '$path' path is not the root directory of $name."
+  echo "Best set the \$NODE_PATH - or else cd to where $name is found."
   help="show"
 fi
 
@@ -51,28 +55,26 @@ fi
 if [[ $1 == "" || $1 == "help" || $help == "show" ]]; then
   # help comes first
   daps.js --help
-  echo "  Extras:"
+  echo "  Configuration:"
   echo
-  echo "    Set \$NODE_PATH to run from anywhere."
-  echo "    This daps will be used via Ansible,"
-  echo "    Serf events / queries, etc."
+  echo "    Set \$NODE_PATH to run $name from anywhere."
   echo
 
 elif [[ $1 == "line" ]]; then
   # use it to dev commands with (before adding them to the $evalist)
   shift # removes line from the argv
-  line=$(daps.js $*)
+  line=$($script $*)
   if oneline "$line" "$*" ; then
     echo $line # the command to be
   fi
 
 elif contains "$evalist" $1 ; then
   # eval daps.js <command> ...
-  command=$(daps.js $*)
+  command=$($script $*)
   oneline "$command" "$*"
   eval $command
 
 else
   # delegate
-  daps.js $*
+  $script $*
 fi
