@@ -11,7 +11,7 @@
 evalist="ssh"
 
 # More variables, with assumptions...
-name=$(basename ${BASH_SOURCE[0]}) # ${0##*/}
+name=$(basename "${BASH_SOURCE[0]}") # ${0##*/}
 script="./bin/$name.coffee" # TODO: configure .<ext> or bring back daps.js
 
 
