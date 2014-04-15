@@ -38,22 +38,27 @@ include () {
 }
 
 
-# Make sure we are in the right place, or don't run anything.
+# Go to the right path - this is verified further down.
 path=$(coffee -e '\
 process.stdout.write (\
   if process.env.NODE_PATH is undefined then "."\
   else process.env.NODE_PATH.split(":")[0] + "/$name")'
 )
 cd $path
-if ! grep -q "^# daps --" "$path/README.md"; then
-  echo
-  echo "This '$path' path is not the root directory of $name."
-  echo "Best set the \$NODE_PATH - or else cd to where $name is found."
-  help="show"
-fi
 
 # If this was run via $bon, provide an easy way to load env vars.
 [[ $base == $bon ]] && include ./bin/bonvars.sh
+
+# Make sure we are in the right place, or don't run anything.
+if [ ! "$BON_CHECK" == "no" ]; then
+  if ! grep -q ${BON_CHECK_GREP:-"^# $name --"}\
+               ${BON_CHECK_FILE:-"$path/README.md"}; then
+    echo
+    echo "This '$path' path is not the root directory of $name."
+    echo "Best set the \$NODE_PATH - or else cd to where $name is found."
+    help="show"
+  fi
+fi
 
 # Space-separated list of commands that produce commands to eval.
 # Be careful what goes here - running arbitrary strings can be bad!
