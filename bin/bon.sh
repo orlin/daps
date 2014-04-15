@@ -39,10 +39,10 @@ contains() {
 # Make sure we are in the right place, or don't run anything.
 path=$(coffee -e '\
 process.stdout.write (\
-  if process.env.NODE_PATH is undefined then "." \
+  if process.env.NODE_PATH is undefined then "."\
   else process.env.NODE_PATH.split(":")[0] + "/$name")'
 )
-oneline "$path" "path" && cd $path
+cd $path
 if ! grep -q "^# daps --" "$path/README.md"; then
   echo
   echo "This '$path' path is not the root directory of $name."
