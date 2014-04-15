@@ -8,12 +8,12 @@
 # Space-separated list of commands that produce commands to eval.
 # Be careful what goes here - running arbitrary strings can be bad!
 # Try `daps line <command>` and add to the list once it looks good.
-evalist="ssh"
+evalist="${BON_EVALIST}"
 
 # More variables, with assumptions...
-name=$(basename "${BASH_SOURCE[0]}") # ${0##*/}
-script="./bin/$name.coffee" # TODO: configure .<ext> or bring back daps.js
-
+name=${BON_NAME:-$(basename "${BASH_SOURCE[0]}")} # ${0##*/}
+script="./bin/$name.${BON_EXT:-js}"
+[ -n "${BON_SCRIPT}" ] && script="${BON_SCRIPT}"
 
 # Exits if a newline is found - a trailing \n is ok.
 oneline() {
