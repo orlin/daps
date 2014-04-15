@@ -50,14 +50,16 @@ cd $path
 [[ $base == $bon ]] && include ./bin/bonvars.sh
 
 # Make sure we are in the right place, or don't run anything.
-if [ ! "$BON_CHECK" == "no" ]; then
-  if ! grep -q ${BON_CHECK_GREP:-"^# $name --"}\
-               ${BON_CHECK_FILE:-"$path/README.md"}; then
+[[ "$BON_CHECK" == "no" ]] && path_ok="yes" #ok not to check
+if ! grep -q ${BON_CHECK_GREP:-"^#\s\+$name\s\+"}\
+             ${BON_CHECK_FILE:-"$path/README.md"}; then
+  path_ok="yes"
+fi
+if [ -n "$path_ok" ]; then # any value of $path_ok means it is ok
     echo
     echo "This '$path' path is not the root directory of $name."
     echo "Best set the \$NODE_PATH - or else cd to where $name is found."
     help="show"
-  fi
 fi
 
 # Space-separated list of commands that produce commands to eval.
