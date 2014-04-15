@@ -5,15 +5,12 @@
 # a small safety mechanism, and a `daps line ...` for daps.js meta-commands
 # development.
 
-# Space-separated list of commands that produce commands to eval.
-# Be careful what goes here - running arbitrary strings can be bad!
-# Try `daps line <command>` and add to the list once it looks good.
-evalist="${BON_EVALIST}"
-
-# More variables, with assumptions...
-name=${BON_NAME:-$(basename "${BASH_SOURCE[0]}")} # ${0##*/}
-script="./bin/$name.${BON_EXT:-js}"
-[ -n "${BON_SCRIPT}" ] && script="${BON_SCRIPT}"
+# Variables, with assumptions...
+bon="bon" # the command of the bon script - matching package.json
+base=$(basename "${0##*/}") # ${BASH_SOURCE[0]} would always be $bon
+name=${BON_NAME:-$base} # of the node package that is using bon
+script="./bin/$name.${BON_EXT:-js}" # relative to the $name package
+[ -n "${BON_SCRIPT}" ] && script="${BON_SCRIPT}" # override entirely
 
 # Exits if a newline is found - a trailing \n is ok.
 oneline() {
@@ -35,6 +32,11 @@ contains() {
   return 1 # = false
 }
 
+# Source a file if it exists.
+include () {
+  [[ -f "$1" ]] && source "$1"
+}
+
 
 # Make sure we are in the right place, or don't run anything.
 path=$(coffee -e '\
@@ -49,6 +51,14 @@ if ! grep -q "^# daps --" "$path/README.md"; then
   echo "Best set the \$NODE_PATH - or else cd to where $name is found."
   help="show"
 fi
+
+# If this was run via $bon, provide an easy way to load env vars.
+[[ $base == $bon ]] && include ./bin/bonvars.sh
+
+# Space-separated list of commands that produce commands to eval.
+# Be careful what goes here - running arbitrary strings can be bad!
+# Try `<name> line <command>` and add to the list once it looks good.
+evalist="${BON_EVALIST}"
 
 
 # The order of `daps` commands matters.
