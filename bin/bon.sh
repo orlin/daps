@@ -58,8 +58,7 @@ if [ -z "$BON_CHECK_GREP" ]; then
   if [[ $name == $package ]]; then
     path_ok="yes"
   fi
-elif grep -q ${BON_CHECK_GREP:-"^#\s\+$name\s\+"}\
-             ${BON_CHECK_FILE:-"$path/README.md"}; then
+elif ! grep -q $BON_CHECK_GREP "$path/$BON_CHECK_FILE"; then
   path_ok="yes"
 fi
 

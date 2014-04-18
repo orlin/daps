@@ -3,8 +3,8 @@
 BON_NAME="daps"
 BON_EXT="coffee"
 BON_EVALIST="ssh"
-# BON_CHECK="yes" # the default, check for module name, unless details given
+# BON_CHECK="no" # otherwise check by default
 # BON_CHECK_FILE="README.md"
-# BON_CHECK_GREP="^# daps --"
+# BON_CHECK_GREP="^#\s\+$name\s\+"
 
 source bon $*
