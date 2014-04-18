@@ -50,16 +50,25 @@ cd $path
 [[ $base == $bon ]] && include ./bin/bonvars.sh
 
 # Make sure we are in the right place, or don't run anything.
+[ -z "$BON_CHECK_FILE" ] && BON_CHECK_FILE=$path/package.json
 [[ "$BON_CHECK" == "no" ]] && path_ok="yes" #ok not to check
-if ! grep -q ${BON_CHECK_GREP:-"^#\s\+$name\s\+"}\
+if [ -z "$BON_CHECK_GREP" ]; then
+  package=$(coffee -e "process.stdout.write \
+    require('$path/package.json').name")
+  if [[ $name == $package ]]; then
+    path_ok="yes"
+  fi
+elif grep -q ${BON_CHECK_GREP:-"^#\s\+$name\s\+"}\
              ${BON_CHECK_FILE:-"$path/README.md"}; then
   path_ok="yes"
 fi
-if [ -n "$path_ok" ]; then # any value of $path_ok means it is ok
-    echo
-    echo "This '$path' path is not the root directory of $name."
-    echo "Best set the \$NODE_PATH - or else cd to where $name is found."
-    help="show"
+
+# The moment of $path_ok truth.
+if [ "$path_ok" != "yes" ]; then
+  echo
+  echo "This '$path' path is not the root directory of $name."
+  echo "Best set the \$NODE_PATH - or else cd to where $name is found."
+  help="show"
 fi
 
 # Space-separated list of commands that produce commands to eval.
