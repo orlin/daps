@@ -1,3 +1,5 @@
+#!/usr/bin/env ./node_modules/.bin/coffee
+
 daps = require("commander")
 {mp, exe, run} = require("./helpers")
 
@@ -36,15 +38,5 @@ daps
   .description("a command that does nothing, used to test the daps bash script with")
   .action -> process.stdout.write '\n' # the last \n gets stripped with $() on the bash side
 
-daps
-  .command("path")
-  .description("the daps module path - based on $NODE_PATH or else .")
-  .action ->
-    process.stdout.write (
-      # TODO: improve with several paths by checking each one for daps/ presence
-      # NOTE: must run daps from its module dir if $NODE_PATH isn't set
-      np = process.env.NODE_PATH
-      if np is undefined then '.' else np.split(':')[0] + "/daps"
-    )
 
 daps.parse(process.argv)
