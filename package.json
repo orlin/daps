@@ -16,6 +16,7 @@
 , "dependencies":
   { "coffee-script": "*"
   , "commander": "*"
+  , "bon": "*"
   , "gulp": "*"
   , "gulp-task-listing": "*"
   }
