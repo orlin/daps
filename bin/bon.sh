@@ -50,16 +50,21 @@ cd $path
 [[ $base == $bon ]] && include ./bin/bonvars.sh
 
 # Make sure we are in the right place, or don't run anything.
-[ -z "$BON_CHECK_FILE" ] && BON_CHECK_FILE=$path/package.json
-[[ "$BON_CHECK" == "no" ]] && path_ok="yes" #ok not to check
-if [ -z "$BON_CHECK_GREP" ]; then
-  package=$(coffee -e "process.stdout.write \
-    require('$path/package.json').name")
-  if [[ $name == $package ]]; then
-    path_ok="yes"
+if [[ "$BON_CHECK" == "no" ]]; then
+  path_ok="yes" # is it ok not to check?  yes, in some cases.
+else
+  [ -z "$BON_CHECK_FILE" ] && BON_CHECK_FILE=$path/package.json
+  if [[ -f "$BON_CHECK_FILE" ]]; then
+    if [ -z "$BON_CHECK_GREP" ]; then
+      package=$(coffee -e "process.stdout.write \
+        require('$path/package.json').name")
+      if [[ $name == $package ]]; then
+        path_ok="yes"
+      fi
+    elif grep -q $BON_CHECK_GREP "$path/$BON_CHECK_FILE"; then
+      path_ok="yes"
+    fi
   fi
-elif grep -q $BON_CHECK_GREP "$path/$BON_CHECK_FILE"; then
-  path_ok="yes"
 fi
 
 # The moment of $path_ok truth.
