@@ -46,9 +46,6 @@ process.stdout.write (\
 )
 cd $path
 
-# If this was run via $bon, provide an easy way to load env vars.
-[[ $base == $bon ]] && include ./bin/bonvars.sh
-
 # Make sure we are in the right place, or don't run anything.
 if [[ "$BON_CHECK" == "no" ]]; then
   path_ok="yes" # is it ok not to check?  yes, in some cases.
@@ -68,17 +65,20 @@ else
 fi
 
 # The moment of $path_ok truth.
-if [ "$path_ok" != "yes" ]; then
+if [ "$path_ok" == "yes" ]; then
+    # If this was run via $bon, provide an easy way to load more vars.
+    [[ $base == $bon ]] && include ./bin/bonvars.sh
+
+    # Space-separated list of commands that produce commands to eval.
+    # Be careful what goes here - running arbitrary strings can be bad!
+    # Try `<name> line <command>` and add to the list once it looks good.
+    evalist="${BON_EVALIST}"
+else
   echo
   echo "This '$path' path is not the root directory of $name."
   echo "Best set the \$NODE_PATH - or else cd to where $name is found."
   help="show"
 fi
-
-# Space-separated list of commands that produce commands to eval.
-# Be careful what goes here - running arbitrary strings can be bad!
-# Try `<name> line <command>` and add to the list once it looks good.
-evalist="${BON_EVALIST}"
 
 
 # The order of `daps` commands matters.
