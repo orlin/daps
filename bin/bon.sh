@@ -65,7 +65,7 @@ else
 fi
 
 # The moment of $path_ok truth.
-if [ "$path_ok" == "yes" ]; then
+if [[ "$path_ok" == "yes" ]]; then
     # If this was run via $bon, provide an easy way to load more vars.
     [[ $base == $bon ]] && include ./bin/bonvars.sh
 
@@ -76,7 +76,7 @@ if [ "$path_ok" == "yes" ]; then
 else
   echo
   echo "This '$path' path is not the root directory of $name."
-  echo "Best set the \$NODE_PATH - or else cd to where $name is found."
+  echo
   help="show"
 fi
 
@@ -85,11 +85,13 @@ fi
 # The sequence of if and elifs shouldn't be rearranged!
 
 if [[ $1 == "" || $1 == "help" || $help == "show" ]]; then
-  # help comes first
-  daps.js --help
+  # help comes first, starting with that of the $script
+  [[ "$path_ok" == "yes" ]] && $script --help
+  # help specific to bon, formatted to match `commander`'s style
   echo "  Configuration:"
   echo
-  echo "    Set \$NODE_PATH to run $name from anywhere."
+  echo "    Set \$NODE_PATH to run $name from anywhere,"
+  echo "    given that $name is a node module script..."
   echo
 
 elif [[ $1 == "line" ]]; then
