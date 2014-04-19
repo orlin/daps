@@ -91,7 +91,7 @@ if [[ $1 == "" || $1 == "help" || $help == "show" ]]; then
   echo "  Configuration:"
   echo
   echo "    Set \$NODE_PATH to run $name from anywhere,"
-  echo "    given that $name is a node module script..."
+  echo "    given that $name is a node module / script."
   echo
 
 elif [[ $1 == "line" ]]; then
