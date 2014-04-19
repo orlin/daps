@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# This `daps` mostly delegates to `daps.js <commands>`.
+# This `bon` mostly delegates to `$script <commands>`, easily node cli.
 # The few extras are location-independence, automated meta-command eval,
-# a small safety mechanism, and a `daps line ...` for daps.js meta-commands
-# development.
+# a small safety mechanism, and a `$script line ...` - for cli dev.
 
 # Variables, with assumptions...
 bon="bon" # the command of the bon script - matching package.json
@@ -81,8 +80,7 @@ else
 fi
 
 
-# The order of `daps` commands matters.
-# The sequence of if and elifs shouldn't be rearranged!
+# The sequence of if and elifs is not arbitrary - so don't rearrange!
 
 if [[ $1 == "" || $1 == "help" || $help == "show" ]]; then
   # help comes first, starting with that of the $script
@@ -103,12 +101,12 @@ elif [[ $1 == "line" ]]; then
   fi
 
 elif contains "$evalist" $1 ; then
-  # eval daps.js <command> ...
+  # `$script <command> ...` writes a string to stdout - to eval
   command=$($script $*)
   oneline "$command" "$*"
   eval $command
 
 else
-  # delegate
+  # delegate the rest
   $script $*
 fi
