@@ -7,4 +7,4 @@ BON_EVALIST="ssh"
 # BON_CHECK_FILE="README.md"
 # BON_CHECK_GREP="^#\s\+daps\s\+"
 
-source node_modules/.bin/bon $*
+source bon "$@"
