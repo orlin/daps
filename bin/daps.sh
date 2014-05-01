@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BON_NAME="daps"
 BON_EXT="coffee"
