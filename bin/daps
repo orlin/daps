@@ -17,6 +17,8 @@ containerIP = (line) ->
   line.match(/([^"]+)",?\s*$/)[1]
 
 
+daps.usage("[command] [options]")
+
 daps.version(require("../package.json").version)
 
 daps
