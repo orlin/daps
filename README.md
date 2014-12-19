@@ -1,8 +1,15 @@
 # daps -- docker, ansible, processes & services
 
 This is a devops project for infrastructure as code.
+
+Not in active development... Though to be kept in mind,
+and hopefully taken further.
+
+## Why
+
 [Culture is Defined by What You Cannot Say](http://thinkrelevance.com/blog/2014/02/17/culture-is-defined-by-what-you-cannot-say).
 
+## Ideas
 
 Points of interest:
 
@@ -19,3 +26,7 @@ Clouds and services:
 * [DigitalOcean](https://digitalocean.com) or any better / more expensive clouds
 * [OpenShift](https://www.openshift.com) good for auto-scaling processing power
 * [Dynamo](http://aws.amazon.com/dynamodb) easy Datomic storage
+
+## License
+
+[MIT](http://orlin.mit-license.org)
