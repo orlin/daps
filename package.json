@@ -1,0 +1,42 @@
+{
+  "name": "daps",
+  "description": "docker ansible packer serf",
+  "keywords": [
+    "devops",
+    "playground"
+  ],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/orlin/daps.git"
+  },
+  "bugs": {
+    "mail": "orlin@astrolet.net",
+    "url": "https://github.com/orlin/daps/issues"
+  },
+  "author": "Orlin M Bozhinov <orlin@astrolet.net>",
+  "contributors": [],
+  "dependencies": {
+    "bon": "*",
+    "childish-process": "0.0.1",
+    "coffee-script": "*",
+    "commander": "*",
+    "gulp": "*",
+    "gulp-task-listing": "*",
+    "install-g": "*"
+  },
+  "devDependencies": {},
+  "bin": {
+    "daps": "./bin/daps.sh"
+  },
+  "scripts": { "install": "./node_modules/.bin/install-g || true" },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://orlin.mit-license.org"
+    }
+  ]
+}

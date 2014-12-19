@@ -5,6 +5,8 @@
 .hg/*
 .svn/*
 ._*
+*.swp
+tmp
 
 # Node
 node_modules
