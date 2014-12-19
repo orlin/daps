@@ -22,13 +22,14 @@
     "coffee-script": "*",
     "commander": "*",
     "gulp": "*",
-    "gulp-task-listing": "*"
+    "gulp-task-listing": "*",
+    "install-g": "*"
   },
   "devDependencies": {},
   "bin": {
     "daps": "./bin/daps.sh"
   },
-  "scripts": {},
+  "scripts": { "install": "./node_modules/.bin/install-g || true" },
   "engines": {
     "node": "0.10.x"
   },
